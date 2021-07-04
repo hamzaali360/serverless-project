@@ -1,6 +1,7 @@
 function hello() {
-    return ("Hello World");
+    return "Hello World";
 }
 
 console.log(hello())
-module.exports = hello
+
+module.exports = hello  
