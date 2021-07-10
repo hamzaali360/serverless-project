@@ -8,40 +8,47 @@ function generate_name(){
     return random_name;
 }
 
-function generate_cat(){
-    let endpoint = "https://cataas.com/cat/cute/says/Bitcamp"
-    let resp = await fetch(endpoint, {
-        method: 'GET'
-    });
+// function generate_cat(){
+//     let endpoint = "https://cataas.com/cat/cute/says/Bitcamp"
+//     let resp = await fetch(endpoint, {
+//         method: 'GET'
+//     });
     
-    let data = await resp.arrayBuffer()
-    // we need to receive it as a buffer since this is an image we are receiving from the API
-    // Buffer?? https://developer.mozilla.org/en-US/docs/Web/API/Blob
+//     let data = await resp.arrayBuffer();
+//     // we need to receive it as a buffer since this is an image we are receiving from the API
+//     // Buffer?? https://developer.mozilla.org/en-US/docs/Web/API/Blob
     
-    base64data = Buffer.from(data).toString('base64')
+//     base64data = Buffer.from(data).toString('base64');
 
-    return base64data;
-}
+//     return base64data;
+// }
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    //let endpoint = "https://cataas.com/cat/cute/says/Bitcamp"
+ 
 
     let name1 = generate_name();
     let name2 = generate_name();
     
+    let endpoint = "https://cataas.com/cat/cute/says/Bitcamp"
+    let resp1 = await fetch(endpoint, {
+        method: 'GET'
+    });
+    
+    let data1 = await resp1.arrayBuffer();
+    
+    base64data1 = Buffer.from(data1).toString('base64');
 
-    // let resp1 = await fetch(endpoint, {
-    //     method: 'GET'
-    // });
+    let resp2 = await fetch(endpoint, {
+        method: 'GET'
+    });
     
-    // let data1 = await resp1.arrayBuffer()
-    // // we need to receive it as a buffer since this is an image we are receiving from the API
-    // // Buffer?? https://developer.mozilla.org/en-US/docs/Web/API/Blob
+    let data2 = await resp2.arrayBuffer();
+   
     
-    // base64data1 = Buffer.from(data).toString('base64')
-    let base64data1 = generate_cat();
-    let base64data2 = generate_cat();
+    base64data2 = Buffer.from(data2).toString('base64');
+    //let base64data1 = generate_cat();
+    //let base64data2 = generate_cat();
 
 context.res = {
     // status: 200, /* Defaults to 200 */
