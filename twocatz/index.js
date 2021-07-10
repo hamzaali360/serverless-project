@@ -43,12 +43,11 @@ module.exports = async function (context, req) {
         method: 'GET'
     });
     
+
     let data2 = await resp2.arrayBuffer();
    
     
     base64data2 = Buffer.from(data2).toString('base64');
-    //let base64data1 = generate_cat();
-    //let base64data2 = generate_cat();
 
 context.res = {
     // status: 200, /* Defaults to 200 */

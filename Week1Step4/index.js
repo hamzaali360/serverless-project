@@ -2,8 +2,8 @@ const fetch = require('node-fetch')
 
 function generate_name(){
     var names = ["Shreya", "Emily", "Fifi", "Beau", "Evelyn", "Julia", "Daniel", "Fardeen"]
-    var random_number = Math.floor(names.length * Math.random());
-    var random_name = names[random_number];
+    var random_number1 = Math.floor(names.length * Math.random());
+    var random_name = names[random_number1];
 
     return random_name;
 }
@@ -47,8 +47,7 @@ module.exports = async function (context, req) {
    
     
     base64data2 = Buffer.from(data2).toString('base64');
-    //let base64data1 = generate_cat();
-    //let base64data2 = generate_cat();
+  
 
 context.res = {
     // status: 200, /* Defaults to 200 */
