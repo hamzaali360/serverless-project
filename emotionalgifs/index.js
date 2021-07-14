@@ -2,25 +2,16 @@ var multipart = require('parse-multipart');
 var fetch = require('node-fetch');
 
 module.exports = async function (context, req) {
-    
-    
-    // here's your boundary:
     var boundary = multipart.getBoundary(req.headers['content-type']);
-    
-    // TODO: assign the body variable the correct value
     var body = req.body
-
-    // parse the body
     var parts = multipart.Parse(body, boundary);
-
     var image = parts[0].data
-    // FILL IN THE BLANK
     var result = await analyzeImage(image)
 
 
     context.res = {
         // status: 200, /* Defaults to 200 */
-        body: {result}
+        body: { result }
     };
 }
 
