@@ -5,8 +5,8 @@ module.exports = async function (context, req) {
     var boundary = multipart.getBoundary(req.headers['content-type']);
     var body = req.body
     var parts = multipart.Parse(body, boundary);
-    var image = parts[0].data
-    var result = await analyzeImage(image)
+    var image = parts[0].data;
+    var result = await analyzeImage(image);
 
 
     context.res = {
