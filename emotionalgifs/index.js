@@ -8,10 +8,18 @@ module.exports = async function (context, req) {
     var image = parts[0].data;
     var result = await analyzeImage(image);
 
+    let emotions = result[0].faceAttributes.emotion;
+    let objects = Object.values(emotions);
+// FILL IT IN
+// What your array could look like: [0.01, 0.34, .....]
+
+    const main_emotion = Object.keys(emotions).find(key => emotions[key] === Math.max(...objects));
+
+
 
     context.res = {
         // status: 200, /* Defaults to 200 */
-        body: { result }
+        body: { main_emotion }
     };
 }
 
