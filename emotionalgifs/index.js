@@ -5,8 +5,8 @@ module.exports = async function (context, req) {
     var boundary = multipart.getBoundary(req.headers['content-type']);
     var body = req.body
     var parts = multipart.Parse(body, boundary);
-    var image = parts[0].data;
-    var result = await analyzeImage(image);
+    //var image = parts[0].data;
+    var result = await analyzeImage(parts[0].data);
 
     let emotions = result[0].faceAttributes.emotion;
     let objects = Object.values(emotions);
@@ -14,22 +14,8 @@ module.exports = async function (context, req) {
 // What your array could look like: [0.01, 0.34, .....]
 
     const main_emotion = Object.keys(emotions).find(key => emotions[key] === Math.max(...objects));
-
-    // const giphyKey = process.env.GIPHY_KEY;
-    // const giphyEndpoint = "https://api.giphy.com/v1/gifs/translate?"
-
-    // let params = new URLSearchParams({
-    //     'api_key': giphyKey,
-    //     's': main_emotion    //FILL IN THIS LINE
-    // })
-    // let resp = await fetch(giphyEndpoint + params.toString(), {
-    //     method: 'GET'
-    // }
-
-    // )
-    // const giphyResult = await resp.json();
-    let gif = getGif(main_emotion)
-
+    let gif = await getGif(main_emotion)
+    
     context.res = {
         // status: 200, /* Defaults to 200 */
         body:  gif.data.url 
@@ -40,17 +26,16 @@ async function getGif(emotion){
     const giphyKey = process.env.GIPHY_KEY;
     const giphyEndpoint = "https://api.giphy.com/v1/gifs/translate";
 
-    let params = new URLSearchParams({
+    let param = new URLSearchParams({
         'api_key': giphyKey,
-        's': emotion    //FILL IN THIS LINE
+        's': emotion    
     })
-    let resp = await fetch(giphyEndpoint + '?' + params.toString(), {
-        method: 'GET'
-    }
-
+    let resps = await fetch(giphyEndpoint + '?' + param.toString(),{
+            method: 'GET'
+        }
     )
-    const giphyResult = await resp.json()
-
+    // console.log(resp);
+    const giphyResult = await resps.json()
     return giphyResult
 }
 
@@ -60,7 +45,7 @@ async function analyzeImage(img){
 
     let params = new URLSearchParams({
         'returnFaceId': 'true',
-        'returnFaceAttributes': 'emotion'     //FILL IN THIS LINE
+        'returnFaceAttributes': 'emotion'     
     })
 
     let resp = await fetch(uriBase + '?' + params.toString(), {
