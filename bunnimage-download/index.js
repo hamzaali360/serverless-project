@@ -20,12 +20,13 @@ module.exports = async function (context, req) {
         method: 'GET',
      })
      let pngdata = await pngresp;
+
      let jpegresp = await fetch(downloadjpeg, {
             method: 'GET',
          })
           let jpegdata = await jpegresp; 
      
-     if (pngdata.statusText == "The specified blob does not exist." && jpgdata.statusText == "The specified blob does not exist." ) {
+     if (pngdata.statusText == "The specified blob does not exist." && jpgdata.statusText == "The specified blob does not exist." && jpegdata.statusText == "The specified blob does not exist.") {
         success = false;
         context.log("Does not exist: " + pngdata)
         context.log("Does not exist: " + jpgdata)
@@ -52,5 +53,6 @@ module.exports = async function (context, req) {
   };
   context.log(download);
   context.done();
+  download = "";
   
 }
