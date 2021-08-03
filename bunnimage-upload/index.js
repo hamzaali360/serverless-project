@@ -19,9 +19,9 @@ try {
         ext = "png";
     } else if (filetype == "image/jpeg") {
         ext = "jpg";
-    } //else if (filetype == "image/jpg") {
-    //     ext = "jpg"
-    // } 
+    } else if (filetype == "image/jpg") {
+        ext = "jpg"
+    } 
     else {
         username = "invalidimage"
         ext = "";
